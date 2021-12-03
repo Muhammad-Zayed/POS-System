@@ -1,6 +1,7 @@
 <?php
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Dashboard\DashboardController;
+use App\Http\Controllers\Dashboard\UserController;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 /*
@@ -28,5 +29,11 @@ function()
     Route::group(['prefix' => 'dashboard'],function()
     {
         Route::get('/',[DashboardController::class , 'index'])->name('index');
+
+
+        //Users Route 
+        Route::resource('users', UserController::class)->except(['show']);
+
+        
     });
 });
