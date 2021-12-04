@@ -170,10 +170,10 @@
                         <ul class="dropdown-menu">
                             <li>
                                 {{--<!-- inner menu: contains the actual data -->--}}
-                                <ul class="menu">
+                                <ul  class="menu">
                                     @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
                                         <li>
-                                            <a rel="alternate" hreflang="{{ $localeCode }}" href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
+                                            <a style="color: black" rel="alternate" hreflang="{{ $localeCode }}" href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
                                                 {{$properties['native']}}
                                             </a>
                                         </li>
@@ -187,9 +187,9 @@
                     <li class="dropdown user user-menu">
 
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <img src="{{ asset('dashboard_files/img/user2-160x160.jpg') }}" class="user-image" alt="User Image">
-                            <span class="hidden-xs">USER</span>
-{{--                            {{ auth()->user()->first_name }} {{ auth()->user()->last_name }}--}}
+                            <img src="{{ auth()->user()->image_path }}" class="user-image" alt="User Image">
+                            <span class="hidden-xs">{{ auth()->user()->first_name }} {{ auth()->user()->last_name }}</span>
+                            
                         </a>
                         <ul class="dropdown-menu">
 
@@ -198,8 +198,7 @@
                                 <img src="{{ asset('dashboard_files/img/user2-160x160.jpg') }}" class="img-circle" alt="User Image">
 
                                 <p>
-{{--                                    {{ auth()->user()->first_name }} {{ auth()->user()->last_name }}--}}
-                                    USER
+                                    {{ auth()->user()->first_name }} {{ auth()->user()->last_name }}
                                     <small>Member since 2 days</small>
                                 </p>
                             </li>
@@ -292,6 +291,7 @@
                 text: "@lang('site.confirm_delete')",
                 type: "warning",
                 killer: true,
+                layout: 'topCenter',
                 buttons: [
                     Noty.button("@lang('site.yes')", 'btn btn-success mr-2', function () {
                         that.closest('form').submit();
@@ -307,24 +307,44 @@
 
         });//end of delete
 
-        // // image preview
+
+
+
+        //image preview
+        $('.image-preview').change(function(){
+            var url = this.value;
+            var ext = url.substring(url.lastIndexOf('.') + 1).toLowerCase();
+            console.log(url);
+            if (this.files && this.files[0]&& (ext == "gif" || ext == "png" || ext == "jpeg" || ext == "jpg")) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('.image-preview-box').attr('src', e.target.result);
+                }
+
+                reader.readAsDataURL(this.files[0]);
+            }else{
+                $('.image-preview-box').attr('src', '{{ asset('uploads/user_images/default.png')}}');
+            }
+        });
+        
         // $(".image").change(function () {
-        //
+        
         //     if (this.files && this.files[0]) {
         //         var reader = new FileReader();
-        //
+        
         //         reader.onload = function (e) {
         //             $('.image-preview').attr('src', e.target.result);
         //         }
-        //
+        
         //         reader.readAsDataURL(this.files[0]);
         //     }
-        //
+        
         // });
 
         CKEDITOR.config.language =  "{{ app()->getLocale() }}";
 
-    });//end of ready
+    });
 
 </script>
 @stack('scripts')

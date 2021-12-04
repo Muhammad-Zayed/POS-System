@@ -24,7 +24,16 @@ class User extends Authenticatable
         'last_name',
         'email',
         'password',
+        'image',
     ];
+
+
+    /**
+     * Created Attributes 
+     */
+
+    protected $appends = ['image_path'];
+
 
     /**
      * The attributes that should be hidden for serialization.
@@ -44,4 +53,30 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function scopeSearch($query)
+    {
+        return $query->when(request()->search,function($q) {
+            return $q->
+            where('first_name' ,'like','%'.request()->search.'%')
+            ->orWhere('last_name' ,'like','%'.request()->search.'%');
+        });
+    }
+
+    public function getFirstNameAttribute($value)
+    {
+        return ucfirst($value);
+    }
+
+    public function getLastNameAttribute($value)
+    {
+        return ucfirst($value);
+    }
+
+    public function getImagePathAttribute($value)
+    {
+        return asset('uploads/user_images/' . $this->image);
+    }
+
+
 }

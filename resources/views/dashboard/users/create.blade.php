@@ -23,7 +23,7 @@
                 
                 @include('partials._errors')
 
-                <form method="POST" action="{{ route('dashboard.users.store') }}"  role="form">
+                <form method="POST" action="{{ route('dashboard.users.store') }}"  role="form" enctype="multipart/form-data" >
                   @csrf
                     <div class="box-body">
                       <div class="form-group">
@@ -42,6 +42,15 @@
                       </div>
                      
                       <div class="form-group">
+                        <label>@lang('site.image')</label>
+                        <input type="file" name="image" class="form-control image-preview">
+                      </div>
+
+                      <div class="form-group">
+                        <img style="width:100px; height:100px;" class=" img-thumbnail img-rounded image-preview-box" src="{{ asset('uploads/user_images/default.png')}}" >
+                      </div>
+
+                      <div class="form-group">
                         <label>@lang('site.password')</label>
                         <input type="password" name="password" class="form-control" >
                       </div>
@@ -58,14 +67,14 @@
                         <div class="nav-tabs-custom">
                           
                           @php
-                            $models = ['users' , 'categories' , 'products']
+                            $models = ['users' , 'categories' , 'products'];
+                            $maps = ['create' , 'read' , 'update' , 'delete'];
                           @endphp
 
                           <ul class="nav nav-tabs">
                             @foreach ($models as $index => $model )
                             <li class="{{ $index==0? 'active':'' }}"><a href="#{{ $model }}" data-toggle="tab">@lang('site.' . $model)</a></li>
                             @endforeach
-
                           </ul>
 
 
@@ -73,10 +82,11 @@
                             <div class="tab-content">
                               @foreach ($models as $index => $model )
                                 <div class="tab-pane {{ $index==0? 'active':'' }}" id="{{ $model }}">
-                                  <label><input type="checkbox" name="permissions[]" value="{{ $model }}_create" >@lang('site.create')</label>
-                                  <label><input type="checkbox" name="permissions[]" value="{{ $model }}_read" >@lang('site.read')</label>
-                                  <label><input type="checkbox" name="permissions[]" value="{{ $model }}_update" >@lang('site.update')</label>
-                                  <label><input type="checkbox" name="permissions[]" value="{{ $model }}_delete" >@lang('site.delete')</label>
+                                  
+                                  @foreach ($maps as $map )
+                                  <label><input type="checkbox" name="permissions[]" value="{{ $model .'_'. $map }}" >@lang('site.' . $map)</label>                                    
+                                  @endforeach
+                                
                                 </div>
                               @endforeach
                             </div>

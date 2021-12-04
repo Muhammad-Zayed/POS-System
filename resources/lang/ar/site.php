@@ -1,12 +1,25 @@
 <?php
 
 return [
-    'Login'  => 'تسجيل الدخول',
+
+    'login'  => 'تسجيل دخول',
+    'logout' => 'تسجيل خروج',
+
+
     'dashboard' => 'الرئيسية',
+
+    //Users Related Translations
     'users' => 'المشرفين',
     'first_name' => 'الإسم الأول',
     'last_name' => 'الإسم الأخير',
     'email' => 'البريد الإلكتروني',
+
+    //Categories Related Translations
+    'users' => 'المشرفين',
+    'categories' =>'الأقسام',
+    'category_name' => 'إسم القسم',
+
+    //Actions And Global Words Translations
     'action' => 'الخيارات',
     'no_data' => 'لا يوجد بيانات',
     'edit' =>'تعديل',
@@ -22,5 +35,12 @@ return [
     'create'=>'أضافة',
     'update'=>'تعديل',
     'read'=>'عرض',
+    'confirm_delete' => 'هل تريد تأكيد الحذف ؟',
+    'yes' => 'نعم',
+    'no' => 'لا',
+    'image' => 'الصورة',
+    'remember_me' => 'تذكرني',
+    'welcome' => 'مرحبا بك',
+    
 
 ];

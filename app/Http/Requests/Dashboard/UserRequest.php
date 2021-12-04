@@ -23,11 +23,19 @@ class UserRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            'first_name' =>['required','max:10'],
-            'last_name' =>['required','max:10'],
-            'email' =>['required','email','unique:users,email'],
-            'password' =>['required','min:8','confirmed'],
+        $roles =  [
+            'first_name'    =>['required','max:10'],
+            'last_name'     =>['required','max:10'],
+            'email'         =>['required','email','unique:users,email'],
+            'image'         =>['nullable' , 'file' , 'mimes:jpg,png,jpeg'],
+            'permissions' =>['required','array','min:1'],
         ];
+
+        if ($this->method() == 'POST') {
+            $roles['password'] = ['required','min:6','max:191','confirmed'];
+        }else{
+            $roles['email'] = ['required','email','unique:users,email,'.$this->user->id];
+        }
+        return $roles;
     }
 }

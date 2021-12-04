@@ -1,4 +1,6 @@
 <?php
+
+use App\Http\Controllers\Dashboard\CategoryController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Dashboard\UserController;
@@ -31,9 +33,12 @@ function()
         Route::get('/',[DashboardController::class , 'index'])->name('index');
 
 
-        //Users Route 
+        //Users Routes
         Route::resource('users', UserController::class)->except(['show']);
 
-        
+        //Categories Routes
+        Route::resource('categories', CategoryController::class)->except(['show']);
+
+
     });
 });
