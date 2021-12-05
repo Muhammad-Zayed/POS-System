@@ -4,6 +4,7 @@ use App\Http\Controllers\Dashboard\CategoryController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Dashboard\UserController;
+use App\Http\Controllers\Dashboard\ProductController;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 /*
@@ -13,7 +14,7 @@ use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 |
 | Here is where you can register web routes for your Dashboard. These
 | routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group has prefix (dashboard) and 
+| contains the "web" middleware group has prefix (dashboard) and
 | name (dashboard.)
 |
 */
@@ -22,9 +23,9 @@ use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 // mcamara laravel-localization package https://github.com/mcamara/laravel-localization#installation
 
 Route::group([  'prefix' => LaravelLocalization::setLocale(),
-                'middleware' => [ 
+                'middleware' => [
                 'localeSessionRedirect',
-                'localizationRedirect', 
+                'localizationRedirect',
                 'localeViewPath' ]],
 function()
 {
@@ -39,6 +40,8 @@ function()
         //Categories Routes
         Route::resource('categories', CategoryController::class)->except(['show']);
 
+        //Products Routes
+        Route::resource('products',ProductController::class)->except(['show']);
 
     });
 });

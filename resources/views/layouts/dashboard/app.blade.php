@@ -189,7 +189,7 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <img src="{{ auth()->user()->image_path }}" class="user-image" alt="User Image">
                             <span class="hidden-xs">{{ auth()->user()->first_name }} {{ auth()->user()->last_name }}</span>
-                            
+
                         </a>
                         <ul class="dropdown-menu">
 
@@ -231,7 +231,7 @@
 
     <footer class="main-footer">
         <div class="pull-right hidden-xs">
-            <b>Version</b> 2.4.0
+            <b>POS System</b> 2.4.0
         </div>
         <strong>Copyright &copy; 2014-2016
             <a href="https://adminlte.io">Almsaeed Studio</a>.</strong> All rights
@@ -327,21 +327,6 @@
                 $('.image-preview-box').attr('src', '{{ asset('uploads/user_images/default.png')}}');
             }
         });
-        
-        // $(".image").change(function () {
-        
-        //     if (this.files && this.files[0]) {
-        //         var reader = new FileReader();
-        
-        //         reader.onload = function (e) {
-        //             $('.image-preview').attr('src', e.target.result);
-        //         }
-        
-        //         reader.readAsDataURL(this.files[0]);
-        //     }
-        
-        // });
-
         CKEDITOR.config.language =  "{{ app()->getLocale() }}";
 
     });

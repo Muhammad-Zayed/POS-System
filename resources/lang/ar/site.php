@@ -18,6 +18,34 @@ return [
     'users' => 'المشرفين',
     'categories' =>'الأقسام',
     'category_name' => 'إسم القسم',
+    'all_categories' => 'جميع الأقسام',
+
+
+    //Products Related Translations
+
+    'products' =>'المنتجات',
+    'product_name'=>'إسم المنتج',
+    'product_description'=>'وصف المنتج',
+    'purchase_price'=>'سعر الشراء',
+    'sell_price'=>'سعر البيع',
+    'stock'=>'الكمية',
+
+
+
+
+    //MultiLanguage Models Translations
+    'ar'=>[
+        'category_name'  => 'إسم القسم العربي',
+        'product_name'=>'إسم المنتج العربي',
+        'product_description'=>'وصف المنتج العربي',
+    ],
+
+    'en'=>[
+        'category_name'  => 'إسم القسم الإنجليزية',
+        'product_name'=>'إسم المنتج الإنجليزي',
+        'product_description'=>'وصف المنتج الإنجليزي',
+    ],
+
 
     //Actions And Global Words Translations
     'action' => 'الخيارات',
@@ -41,6 +69,6 @@ return [
     'image' => 'الصورة',
     'remember_me' => 'تذكرني',
     'welcome' => 'مرحبا بك',
-    
+
 
 ];
