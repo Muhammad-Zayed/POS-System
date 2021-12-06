@@ -86,7 +86,8 @@
                       <button type="submit" class="btn btn-primary"><i class="fa fa-plus"></i>@lang('site.add')</button>
                     </div>
                 </form>
-              </div>
+
+            </div>
         </section>
     </div>
 @endsection

@@ -14,7 +14,7 @@ class CategoryController extends Controller
     {
 
         // Search Is Local scope
-        $categories = Category::Search()->latest()->Paginate(10);
+        $categories = Category::Search()->withCount('products')->latest()->Paginate(10);
         return view('dashboard.categories.index',compact('categories'));
     }
 

@@ -44,6 +44,8 @@
                                     <tr>
                                         <th>#</th>
                                         <th>@lang('site.category_name')</th>
+                                        <th>@lang('site.category_count')</th>
+                                        <th>@lang('site.category_list')</th>
                                         <th>@lang('site.action')</th>
 
                                     </tr>
@@ -54,7 +56,16 @@
                                         <tr>
                                             <td>{{ $index+1 }}</td>
                                             <td>{{ $category->name }}</td>
-                                            {{--  <td><img style="width:50px; height:50px;" class=" img-thumbnail img-rounded" src="{{ $category->image_path }}" ></td>  --}}
+                                            <td>{{ $category->products_count }}</td>
+
+                                            <td>
+                                                @if (auth()->user()->hasPermission('categories_update'))
+                                                    <a class="btn btn-info btn-sm" href="{{ route('dashboard.products.index' , ['category_id'=>$category->id]) }}"><i class="fa fa-eye"></i>@lang('site.show')</a>
+                                                @else
+                                                    <button disabled class="btn btn-info btn-sm" ><i class="fa fa-edit"></i>@lang('site.show')</button>
+                                                @endif
+                                            </td>
+
                                             <td>
                                                 @if (auth()->user()->hasPermission('categories_update'))
                                                     <a class="btn btn-info btn-sm" href="{{ route('dashboard.categories.edit' , $category->id) }}"><i class="fa fa-edit"></i>@lang('site.edit')</a>

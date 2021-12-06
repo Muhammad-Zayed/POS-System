@@ -22,13 +22,27 @@
                                 <input type="text" name="search" class="form-control" value="{{ request()->search }}" placeholder="@lang('site.search')">
                             </div>
 
-                            <button type="submit" class="btn btn-primary btn-sm"><i class="fa fa-search"></i>@lang('site.search')</button>
 
-                            @if (auth()->user()->hasPermission('products_create'))
-                                <a class="btn btn-primary btn-sm" href="{{ route('dashboard.products.create') }}"><i class="fa fa-plus"></i> @lang('site.add')</a>
-                            @else
-                                <button disabled class="btn btn-primary btn-sm"> <i class="fa fa-plus"></i> @lang('site.add')</button>
-                            @endif
+                            <div class="col-md-4">
+                                <select name="category_id" style="padding: 0px" class="form-control">
+                                    <option value="">@lang('site.all_categories')</option>
+                                    @foreach($categories as $category)
+                                    <option {{request()->category_id == $category->id ? 'selected' : ''}} value="{{$category->id}}">{{$category->name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+
+
+                            <div class="col-md-2">
+                                <button type="submit" class="btn btn-primary btn-sm"><i class="fa fa-search"></i>@lang('site.search')</button>
+
+                                @if (auth()->user()->hasPermission('products_create'))
+                                    <a class="btn btn-primary btn-sm" href="{{ route('dashboard.products.create') }}"><i class="fa fa-plus"></i> @lang('site.add')</a>
+                                @else
+                                    <button disabled class="btn btn-primary btn-sm"> <i class="fa fa-plus"></i> @lang('site.add')</button>
+                                @endif
+                            </div>
+
                         </div>
 
                     </form>
@@ -45,9 +59,11 @@
                                         <th>#</th>
                                         <th>@lang('site.product_name')</th>
                                         <th>@lang('site.product_description')</th>
+                                        <th>@lang('site.category')</th>
                                         <th>@lang('site.image')</th>
                                         <th>@lang('site.purchase_price')</th>
                                         <th>@lang('site.sell_price')</th>
+                                        <th>@lang('site.profit_percent')</th>
                                         <th>@lang('site.stock')</th>
                                         <th>@lang('site.action')</th>
 
@@ -60,9 +76,11 @@
                                             <td>{{ $index+1 }}</td>
                                             <td>{{ $product->name }}</td>
                                             <td>{!! $product->description !!}</td>
+                                            <td>{{ $product->category->name }}</td>
                                             <td><img style="width:50px; height:50px;" class=" img-thumbnail img-rounded" src="{{ $product->image_path }}" ></td>
                                             <td>{{ $product->purchase_price }}</td>
                                             <td>{{ $product->sell_price}}</td>
+                                            <td>{{ $product->profit_percent}} %</td>
                                             <td>{{ $product->stock}}</td>
 
                                             <td>
@@ -71,7 +89,6 @@
                                                 @else
                                                      <button disabled class="btn btn-info btn-sm" ><i class="fa fa-edit"></i>@lang('site.edit')</button>
                                                 @endif
-
 
                                                 @if (auth()->user()->hasPermission('products_delete'))
                                                     <form style="display: inline-block" method="POST" action="{{ route('dashboard.products.destroy', $product->id) }}">

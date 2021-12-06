@@ -17,8 +17,11 @@ return [
     //Categories Related Translations
     'users' => 'المشرفين',
     'categories' =>'الأقسام',
+    'category' =>'القسم',
     'category_name' => 'إسم القسم',
     'all_categories' => 'جميع الأقسام',
+    'category_count' => 'عدد منتجات القسم ',
+    'category_list' => 'قائمة منتجات القسم ',
 
 
     //Products Related Translations
@@ -29,7 +32,7 @@ return [
     'purchase_price'=>'سعر الشراء',
     'sell_price'=>'سعر البيع',
     'stock'=>'الكمية',
-
+    'profit_percent' => 'نسبة الربح ',
 
 
 
@@ -53,6 +56,7 @@ return [
     'edit' =>'تعديل',
     'delete' => 'حذف',
     'add' => 'أضف',
+    'show' => 'عرض',
     'search' =>'بحث',
     'password' => 'كلمة المرور',
     'password_confirmation' => 'تأكيد كلمة المرور',

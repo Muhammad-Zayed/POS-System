@@ -22,7 +22,7 @@ class Category extends Model
     public function scopeSearch($query)
     {
         return $query->when(request()->search,function($q) {
-            return $q->where('name' ,'like','%'.request()->search.'%');
+            return $q->whereTranslationLike('name' ,'%'.request()->search.'%');
         });
     }
 }
