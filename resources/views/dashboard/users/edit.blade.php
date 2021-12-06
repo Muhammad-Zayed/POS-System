@@ -20,7 +20,7 @@
                 <div class="box-header with-border">
                   <h3 class="box-title">@lang('site.edit')</h3>
                 </div>
-                
+
                 @include('partials._errors')
 
                 <form method="POST" action="{{ route('dashboard.users.update', $user->id) }}" enctype="multipart/form-data" >
@@ -41,7 +41,7 @@
                         <label>@lang('site.email')</label>
                         <input type="email" name="email" class="form-control" value="{{ $user->email }}">
                       </div>
-                     
+
                       <div class="form-group">
                         <label>@lang('site.image')</label>
                         <input type="file" name="image" class="form-control image-preview">
@@ -53,13 +53,13 @@
 
                       <div class="form-group">
                         <label>@lang('site.permissions')</label>
-    
+
 
                         <div class="nav-tabs-custom">
-                          
+
                           @php
-                            $models = ['users' , 'categories' , 'products'];
-                            $maps = ['create' , 'read' , 'update' , 'delete'];
+                              $models = ['users' , 'categories' , 'products' , 'clients' , 'orders'];
+                              $maps = ['create' , 'read' , 'update' , 'delete'];
                           @endphp
 
                           <ul class="nav nav-tabs">
@@ -74,11 +74,11 @@
                             <div class="tab-content">
                               @foreach ($models as $index => $model )
                                 <div class="tab-pane {{ $index==0? 'active':'' }}" id="{{ $model }}">
-                                  
+
                                   @foreach ($maps as $map )
-                                  <label><input type="checkbox" {{ $user->hasPermission($model .'_'.$map) ? 'checked' :'' }} name="permissions[]" value="{{ $model .'_'. $map }}" >@lang('site.' . $map)</label>                                    
+                                  <label><input type="checkbox" {{ $user->hasPermission($model .'_'.$map) ? 'checked' :'' }} name="permissions[]" value="{{ $model .'_'. $map }}" >@lang('site.' . $map)</label>
                                   @endforeach
-                                
+
                                 </div>
                               @endforeach
                             </div>
@@ -88,8 +88,8 @@
                       </div>
 
                     </div>
-                    
-                    
+
+
 
 
                     <div class="box-footer">

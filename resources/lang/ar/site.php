@@ -27,12 +27,15 @@ return [
     //Products Related Translations
 
     'products' =>'المنتجات',
+    'product' =>'المنتج',
     'product_name'=>'إسم المنتج',
     'product_description'=>'وصف المنتج',
     'purchase_price'=>'سعر الشراء',
     'sell_price'=>'سعر البيع',
+    'price'=>'السعر',
     'stock'=>'الكمية',
     'profit_percent' => 'نسبة الربح ',
+    'total'         =>'الإجمالي',
 
 
     //clients Related Translations
@@ -40,6 +43,8 @@ return [
     'name'      =>'الإسم',
     'phone'     =>'رقم الهاتف',
     'address'   =>'العنوان',
+    'add_order'=>'أضافة طلب',
+    'orders'=>'الطلبات',
 
 
 

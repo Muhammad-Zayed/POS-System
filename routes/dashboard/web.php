@@ -7,6 +7,7 @@ use App\Http\Controllers\Dashboard\UserController;
 use App\Http\Controllers\Dashboard\ProductController;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 use App\Http\Controllers\Dashboard\ClientController;
+use App\Http\Controllers\Dashboard\OrderController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes For Dashboard
@@ -46,5 +47,7 @@ function()
 
         //Clients Routes
         Route::resource('clients',ClientController::class)->except(['show']);
+        //Orders Routes
+        Route::resource('clients.orders',OrderController::class)->except(['show']);
     });
 });

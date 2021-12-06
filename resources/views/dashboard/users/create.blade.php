@@ -20,7 +20,7 @@
                 <div class="box-header with-border">
                   <h3 class="box-title">@lang('site.add')</h3>
                 </div>
-                
+
                 @include('partials._errors')
 
                 <form method="POST" action="{{ route('dashboard.users.store') }}"  role="form" enctype="multipart/form-data" >
@@ -40,7 +40,7 @@
                         <label>@lang('site.email')</label>
                         <input type="email" name="email" class="form-control" value="{{ old('email') }}">
                       </div>
-                     
+
                       <div class="form-group">
                         <label>@lang('site.image')</label>
                         <input type="file" name="image" class="form-control image-preview">
@@ -62,12 +62,12 @@
 
                       <div class="form-group">
                         <label>@lang('site.permissions')</label>
-    
+
 
                         <div class="nav-tabs-custom">
-                          
+
                           @php
-                            $models = ['users' , 'categories' , 'products'];
+                            $models = ['users' , 'categories' , 'products' , 'clients' , 'orders'];
                             $maps = ['create' , 'read' , 'update' , 'delete'];
                           @endphp
 
@@ -82,11 +82,11 @@
                             <div class="tab-content">
                               @foreach ($models as $index => $model )
                                 <div class="tab-pane {{ $index==0? 'active':'' }}" id="{{ $model }}">
-                                  
+
                                   @foreach ($maps as $map )
-                                  <label><input type="checkbox" name="permissions[]" value="{{ $model .'_'. $map }}" >@lang('site.' . $map)</label>                                    
+                                  <label><input type="checkbox" name="permissions[]" value="{{ $model .'_'. $map }}" >@lang('site.' . $map)</label>
                                   @endforeach
-                                
+
                                 </div>
                               @endforeach
                             </div>
@@ -96,8 +96,8 @@
                       </div>
 
                     </div>
-                    
-                    
+
+
 
 
                     <div class="box-footer">

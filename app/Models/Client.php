@@ -19,4 +19,10 @@ class Client extends Model
             where('name' ,'like','%'.request()->search.'%');
         });
     }
+
+
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
+    }
 }
