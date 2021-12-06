@@ -7,16 +7,16 @@
             <h1>@lang('site.categories')</h1>
             <ol class="breadcrumb">
                 <li><a href="{{ route('dashboard.index') }}"><i class="fa fa-dashboard">@lang('site.dashboard')</i></a></li>
-                <li class="active"><i >@lang('site.categories')</i></li>
+                <li class="active"><i >@lang('site.clients')</i></li>
             </ol>
         </section>
 
         <section class="content">
             <div class="box box-primary">
                 <div class="box-header with-border">
-                  <h3 class="box-title" style="margin-bottom: 15px">@lang('site.categories') <small>({{ $categories->total() }})</small></h3>
+                  <h3 class="box-title" style="margin-bottom: 15px">@lang('site.clients') <small>({{ $clients->count() }})</small></h3>
 
-                    <form action="{{ route('dashboard.categories.index') }}" method="GET">
+                    <form action="{{ route('dashboard.clients.index') }}" method="GET">
                         <div class="row">
                             <div class="col-md-4">
                                 <input type="text" name="search" class="form-control" value="{{ request()->search }}" placeholder="@lang('site.search')">
@@ -24,8 +24,8 @@
 
                             <button type="submit" class="btn btn-primary btn-sm"><i class="fa fa-search"></i>@lang('site.search')</button>
 
-                            @if (auth()->user()->hasPermission('categories_create'))
-                                <a class="btn btn-primary btn-sm" href="{{ route('dashboard.categories.create') }}"><i class="fa fa-plus"></i> @lang('site.add')</a>
+                            @if (auth()->user()->hasPermission('clients_create'))
+                                <a class="btn btn-primary btn-sm" href="{{ route('dashboard.clients.create') }}"><i class="fa fa-plus"></i> @lang('site.add')</a>
                             @else
                                 <button disabled class="btn btn-primary btn-sm"> <i class="fa fa-plus"></i> @lang('site.add')</button>
                             @endif
@@ -35,47 +35,41 @@
 
                 </div>
 
-                <!-- Start categories Table-->
+                <!-- Start clients Table-->
                     <div class="box-body">
-                        @if($categories->count())
+                        @if($clients->count())
 
                             <table class="table table-hover">
                                 <thead>
                                     <tr>
                                         <th>#</th>
-                                        <th>@lang('site.category_name')</th>
-                                        <th>@lang('site.category_count')</th>
-                                        <th>@lang('site.category_list')</th>
+                                        <th>@lang('site.name')</th>
+                                        <th>@lang('site.phone')</th>
+                                        <th>@lang('site.address')</th>
                                         <th>@lang('site.action')</th>
 
                                     </tr>
                                 </thead>
 
                                 <tbody>
-                                    @foreach ($categories as $index => $category)
+                                    @foreach ($clients as $index => $client)
                                         <tr>
                                             <td>{{ $index+1 }}</td>
-                                            <td>{{ $category->name }}</td>
-                                            <td>{{ $category->products_count }}</td>
+                                            <td>{{ $client->name }}</td>
+                                            <td>{{ $client->phone }}</td>
+                                            <td>{{ $client->address }}</td>
+
 
                                             <td>
-                                                @if (auth()->user()->hasPermission('categories_read'))
-                                                    <a class="btn btn-info btn-sm" href="{{ route('dashboard.products.index' , ['category_id'=>$category->id]) }}"><i class="fa fa-eye"></i>@lang('site.show')</a>
-                                                @else
-                                                    <button disabled class="btn btn-info btn-sm" ><i class="fa fa-edit"></i>@lang('site.show')</button>
-                                                @endif
-                                            </td>
-
-                                            <td>
-                                                @if (auth()->user()->hasPermission('categories_update'))
-                                                    <a class="btn btn-info btn-sm" href="{{ route('dashboard.categories.edit' , $category->id) }}"><i class="fa fa-edit"></i>@lang('site.edit')</a>
+                                                @if (auth()->user()->hasPermission('clients_update'))
+                                                    <a class="btn btn-info btn-sm" href="{{ route('dashboard.clients.edit' , $client->id) }}"><i class="fa fa-edit"></i>@lang('site.edit')</a>
                                                 @else
                                                      <button disabled class="btn btn-info btn-sm" ><i class="fa fa-edit"></i>@lang('site.edit')</button>
                                                 @endif
 
 
-                                                @if (auth()->user()->hasPermission('categories_delete'))
-                                                    <form style="display: inline-block" method="POST" action="{{ route('dashboard.categories.destroy', $category->id) }}">
+                                                @if (auth()->user()->hasPermission('clients_delete'))
+                                                    <form style="display: inline-block" method="POST" action="{{ route('dashboard.clients.destroy', $client->id) }}">
                                                         @csrf
                                                         @method('delete')
 
@@ -92,7 +86,7 @@
                                     @endforeach
                                 </tbody>
                             </table>
-                            {{ $categories->appends(request()->query())->links() }}
+                            {{ $clients->appends(request()->query())->links() }}
                         @else
                             <h2>@lang('site.no_data')</h2>
                         @endif

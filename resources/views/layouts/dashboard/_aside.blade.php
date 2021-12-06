@@ -23,6 +23,15 @@
                 </li>
             @endif
 
+            @if (auth()->user()->hasPermission('clients_read'))
+                <li>
+                    <a href="{{ route('dashboard.clients.index') }}">
+                        <i class="fa fa-user"></i>
+                        <span>@lang('site.clients')</span>
+                    </a>
+                </li>
+            @endif
+
             @if (auth()->user()->hasPermission('categories_read'))
                 <li>
                     <a href="{{ route('dashboard.categories.index') }}">

@@ -6,7 +6,7 @@ use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Dashboard\UserController;
 use App\Http\Controllers\Dashboard\ProductController;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
-
+use App\Http\Controllers\Dashboard\ClientController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes For Dashboard
@@ -43,5 +43,8 @@ function()
         //Products Routes
         Route::resource('products',ProductController::class)->except(['show']);
 
+
+        //Clients Routes
+        Route::resource('clients',ClientController::class)->except(['show']);
     });
 });

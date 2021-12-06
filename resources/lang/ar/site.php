@@ -35,6 +35,13 @@ return [
     'profit_percent' => 'نسبة الربح ',
 
 
+    //clients Related Translations
+    'clients'   => 'العملاء',
+    'name'      =>'الإسم',
+    'phone'     =>'رقم الهاتف',
+    'address'   =>'العنوان',
+
+
 
     //MultiLanguage Models Translations
     'ar'=>[
@@ -73,6 +80,7 @@ return [
     'image' => 'الصورة',
     'remember_me' => 'تذكرني',
     'welcome' => 'مرحبا بك',
+
 
 
 ];
