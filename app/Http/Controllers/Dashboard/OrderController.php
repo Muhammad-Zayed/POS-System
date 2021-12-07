@@ -3,50 +3,24 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
-use App\Models\Category;
-use App\Models\Client;
 use App\Models\Order;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
 {
 
-    public function index(Client $client, Request $request)
+    public function index(Request $request)
     {
+
+        $orders = Order::Search()->latest()->paginate(10);
+        return view('dashboard.orders.index' , compact('orders'));
 
     }
 
-    public function create(Client $client)
+    public function products(Order $order)
     {
-        $categories = Category::with('products')->get();
-        return view('dashboard.orders.create' , compact('client' , 'categories'));
-    }
+        $products = $order->products;
 
-
-    public function store(Client $client ,Request $request)
-    {
-        dd($request->all());
-    }
-
-
-    public function show(Order $order)
-    {
-        //
-    }
-
-
-    public function edit(Client $client ,Order $order)
-    {
-        //
-    }
-
-    public function update(Request $request,Client $client, Order $order)
-    {
-        //
-    }
-
-    public function destroy(Client $client, Order $order)
-    {
-        //
+        return view('dashboard.orders._products',compact('products','order'));
     }
 }

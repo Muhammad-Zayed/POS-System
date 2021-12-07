@@ -1,13 +1,14 @@
 <?php
 
 use App\Http\Controllers\Dashboard\CategoryController;
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Dashboard\DashboardController;
-use App\Http\Controllers\Dashboard\UserController;
-use App\Http\Controllers\Dashboard\ProductController;
-use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 use App\Http\Controllers\Dashboard\ClientController;
-use App\Http\Controllers\Dashboard\OrderController;
+use App\Http\Controllers\Dashboard\Clients\OrderController;
+use App\Http\Controllers\Dashboard\DashboardController;
+use App\Http\Controllers\Dashboard\ProductController;
+use App\Http\Controllers\Dashboard\UserController;
+use Illuminate\Support\Facades\Route;
+use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes For Dashboard
@@ -47,7 +48,13 @@ function()
 
         //Clients Routes
         Route::resource('clients',ClientController::class)->except(['show']);
-        //Orders Routes
+
+        //Clients Orders Routes
         Route::resource('clients.orders',OrderController::class)->except(['show']);
+
+
+        //General Orders Routes
+        Route::resource('orders',\App\Http\Controllers\Dashboard\OrderController::class)->only(['index','destroy']);
+        Route::get('/orders/{order}/products',[\App\Http\Controllers\Dashboard\OrderController::class , 'products'])->name('orders.products');
     });
 });

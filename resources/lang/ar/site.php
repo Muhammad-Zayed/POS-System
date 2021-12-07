@@ -41,10 +41,13 @@ return [
     //clients Related Translations
     'clients'   => 'العملاء',
     'name'      =>'الإسم',
+    'client_name'=>'إسم العميل',
     'phone'     =>'رقم الهاتف',
     'address'   =>'العنوان',
     'add_order'=>'أضافة طلب',
     'orders'=>'الطلبات',
+    'total_orders'=>'إجمالي الطلبات',
+
 
 
 
@@ -85,6 +88,9 @@ return [
     'image' => 'الصورة',
     'remember_me' => 'تذكرني',
     'welcome' => 'مرحبا بك',
+    'created_at' => 'تاريخ الطلب    ',
+    'loading'   =>'جاري التحميل',
+    'print'     =>'طباعة',
 
 
 

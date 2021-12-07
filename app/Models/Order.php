@@ -18,6 +18,20 @@ class Order extends Model
 
     public function products()
     {
-        return $this->belongsToMany(Product::class,'product_order');
+        return $this->belongsToMany(Product::class,'product_order')->withPivot('quantity');
+    }
+
+    public function getNameAttribute($value)
+    {
+        return ucfirst($value);
+    }
+
+    public function scopeSearch($query)
+    {
+        return $query->when(request()->search,function($q) {
+            return $q->whereHas('client' , function ($query){
+                return $query->where('name' ,'like','%'.request()->search.'%');
+            });
+        });
     }
 }
