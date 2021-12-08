@@ -16,19 +16,16 @@ use function view;
 class OrderController extends Controller
 {
 
-    public function index(Client $client, Request $request)
-    {
-
-    }
-
     public function create(Client $client)
     {
 
         $categories = Category::with(['products' => function($query){
             return $query->where('stock' , '>' , 0);
-        }])->get();
+        }])->paginate(5,['*'],'categories');
 
-        return view('dashboard.clients.orders.create' , compact('client' , 'categories'));
+        $orders = $client->orders()->with('products')->paginate(2,['*'],'orders');
+
+        return view('dashboard.clients.orders.create' , compact('client' , 'categories','orders'));
     }
 
 
@@ -38,12 +35,12 @@ class OrderController extends Controller
             $valid = $this->is_valid_order();
 
             if($valid == -1)
-                return redirect()->back()->withErrors(__('Quantity_Is_Invalid'));
+                return redirect()->back()->withErrors(__('site.Quantity_Is_Invalid'));
 
 
             $order = $client->orders()->create(['price'=>$valid]);
             $order->products()->attach($request->products);
-            session()->flash('success' , __('site.deleted_successfully'));
+            session()->flash('success' , __('site.added_successfully'));
             return redirect()->route('dashboard.orders.index');
 
 
@@ -51,31 +48,37 @@ class OrderController extends Controller
     }
 
 
-    public function show(Order $order)
-    {
-        //
-    }
-
-
     public function edit(Client $client ,Order $order)
     {
-        //
+        $categories = Category::with(['products' => function($query){
+            return $query->where('stock' , '>' , 0);
+        }])->get();
+        $orders = $client->orders()->with('products')->paginate(2,['*'],'orders');
+
+
+        return view('dashboard.clients.orders.edit',compact('client','order' , 'categories' , 'orders'));
     }
 
-    public function update(Request $request,Client $client, Order $order)
+    public function update(OrderRequest $request,Client $client, Order $order)
     {
-        //
-    }
 
-    public function destroy(Client $client, Order $order)
-    {
-        //
+        $valid = $this->is_valid_order();
+
+        if($valid == -1)
+            return redirect()->back()->withErrors(__('site.Quantity_Is_Invalid'));
+
+        $this->detach_order($order);
+        $order->update(['price'=>$valid]);
+        $order->products()->sync($request->products);
+
+        session()->flash('success' , __('site.updated_successfully'));
+        return redirect()->route('dashboard.orders.index');
     }
 
 
     /******************************************************************************/
 
-    public function is_valid_order()
+    private function is_valid_order()
     {
         $order_products = [];
         $products = request()->products;
@@ -95,6 +98,16 @@ class OrderController extends Controller
             ]);
         }
         return $total_price;
+    }
+
+    private function detach_order(Order $order)
+    {
+        foreach ($order->products as $product) {
+            if(!in_array($product->id , request()->products))
+            $product->update([
+                'stock' => $product->stock + $product->pivot->quantity
+            ]);
+        }
     }
 
 }

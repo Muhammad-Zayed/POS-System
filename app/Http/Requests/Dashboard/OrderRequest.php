@@ -28,4 +28,12 @@ class OrderRequest extends FormRequest
             'products.*.quantity' => ['required' , 'numeric' , 'min:1']
         ];
     }
+
+    public function messages()
+    {
+        return [
+            'products.required' => __('site.order_required'),
+            'products.*.quantity.min' => __('site.minimum_product_quantity'),
+        ];
+    }
 }

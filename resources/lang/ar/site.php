@@ -47,6 +47,7 @@ return [
     'add_order'=>'أضافة طلب',
     'orders'=>'الطلبات',
     'total_orders'=>'إجمالي الطلبات',
+    'previous_orders' => 'الطلبات السابقة',
 
 
 
@@ -91,6 +92,9 @@ return [
     'created_at' => 'تاريخ الطلب    ',
     'loading'   =>'جاري التحميل',
     'print'     =>'طباعة',
+    'Quantity_Is_Invalid'=>'الكمية غير متوفرة',
+    'order_required'    => 'يجب أن يحتوي الطلب على منتج واحد على الأقل',
+    'minimum_product_quantity'    => 'كمية المنتج غير مقبولة',
 
 
 
