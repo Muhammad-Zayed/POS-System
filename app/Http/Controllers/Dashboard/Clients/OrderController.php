@@ -19,9 +19,7 @@ class OrderController extends Controller
     public function create(Client $client)
     {
 
-        $categories = Category::with(['products' => function($query){
-            return $query->where('stock' , '>' , 0);
-        }])->paginate(5,['*'],'categories');
+        $categories = Category::with('products')->paginate(5,['*'],'categories');
 
         $orders = $client->orders()->with('products')->paginate(2,['*'],'orders');
 
@@ -50,9 +48,7 @@ class OrderController extends Controller
 
     public function edit(Client $client ,Order $order)
     {
-        $categories = Category::with(['products' => function($query){
-            return $query->where('stock' , '>' , 0);
-        }])->get();
+        $categories = Category::with('products')->get();
         $orders = $client->orders()->with('products')->paginate(2,['*'],'orders');
 
 

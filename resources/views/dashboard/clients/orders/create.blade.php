@@ -63,12 +63,12 @@
                                                                 <td>{{ $product->stock }}</td>
                                                                 <td>{{ number_format($product->sell_price, 2) }}</td>
                                                                 <td>
-                                                                    <a href=""
+                                                                    <a
                                                                        id="product-{{ $product->id }}"
                                                                        data-name="{{ $product->name }}"
                                                                        data-id="{{ $product->id }}"
                                                                        data-price="{{ $product->sell_price }}"
-                                                                       class="btn btn-success btn-sm add-product-btn">
+                                                                       class="btn {{$product->stock==0 ? 'btn-default disabled' : 'btn-success'}} btn-sm add-product-btn">
                                                                         <i class="fa fa-plus"></i>
                                                                     </a>
                                                                 </td>
