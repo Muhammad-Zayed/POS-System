@@ -13,6 +13,14 @@ use Intervention\Image\Facades\Image;
 class ProductController extends Controller
 {
 
+    public function __construct()
+    {
+        $this->middleware('permission:products_read')->only('index');
+        $this->middleware('permission:products_create')->only(['create','store']);
+        $this->middleware('permission:products_update')->only(['edit','update']);
+        $this->middleware('permission:products_delete')->only('destroy');
+    }
+
     public function index(Request $request)
     {
         $categories = Category::all();
@@ -31,6 +39,7 @@ class ProductController extends Controller
     public function store(ProductRequest $request)
     {
         $productData = $request->all();
+
         if($request->hasFile('image')){
             Image::make($request->image)
                 ->resize(300, null, function ($constraint) {
@@ -38,7 +47,7 @@ class ProductController extends Controller
                 })->save(public_path('uploads/product_images/'. $request->image->hashName()));
             $productData['image'] = $request->image->hashName();
         }
-
+        
         Product::create($productData);
 
         session()->flash('success' , __('site.added_successfully'));
