@@ -10,6 +10,14 @@ use Illuminate\Http\Request;
 class ClientController extends Controller
 {
 
+    public function __construct()
+    {
+        $this->middleware('permission:clients_read')->only('index');
+        $this->middleware('permission:clients_create')->only(['create','store']);
+        $this->middleware('permission:clients_update')->only(['edit','update']);
+        $this->middleware('permission:clients_delete')->only('destroy');
+    }
+
     public function index(Request $request)
     {
         $clients = Client::Search()->latest()->paginate(10);
@@ -51,6 +59,15 @@ class ClientController extends Controller
 
     public function destroy(Client $client)
     {
+
+        foreach ($client->orders as $order ) {
+            foreach ($order->products as $product) {
+                $product->update([
+                    'stock' => $product->stock + $product->pivot->quantity
+                ]);
+            }
+            
+        }
         $client->delete();
         session()->flash('success' , __('site.deleted_successfully'));
         return redirect()->route('dashboard.clients.index');
