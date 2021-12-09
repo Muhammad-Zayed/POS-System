@@ -10,6 +10,14 @@ use Illuminate\Http\Request;
 class CategoryController extends Controller
 {
 
+    public function __construct()
+    {
+        $this->middleware('permission:categories_read')->only('index');
+        $this->middleware('permission:categories_create')->only(['create','store']);
+        $this->middleware('permission:categories_update')->only(['edit','update']);
+        $this->middleware('permission:categories_delete')->only('destroy');
+    }
+
     public function index()
     {
 
@@ -26,7 +34,6 @@ class CategoryController extends Controller
 
     public function store(CategoryRequest $request)
     {
-        //dd($request->all());
         Category::create($request->all());
 
         session()->flash('success' , __('site.added_successfully'));
