@@ -10,7 +10,9 @@ This is a multilanguage POS system .
 
 ## Used Packages
 1- Laravel mcamara : Used for manipulating localization .
+
 2- Laratrust : Used for roles and permissions .
+
 3- Image intervention : Used for manipulating images such as resizing and compressing .
 
 
